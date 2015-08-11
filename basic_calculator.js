@@ -5,15 +5,32 @@ clear();
 
 calculator = function(str) {
 	str = remove_spaces(str)
-	console.log(str);
-	indices = get_item_index(str);
-	item = excise_item(indices, str);
 
-	sum = add_numbers(item);
+	while (true) {
+		console.log(str);
 
+		indices = get_item_index(str);
+		console.log(indices)
+		if (indices[0] == null) {
+			break;
+		}
 
-	console.log(item)
-	console.log(sum)
+		item = excise_item(indices, str);
+
+		sum = add_numbers(item);
+		str = rebuild_str(str, indices, sum);
+
+		console.log('item: ', item)
+		console.log("sum: ", sum)
+		console.log('str', str)
+		console.log()
+	}
+}
+
+rebuild_str = function(str, indices, sum){
+	part_1 = str.slice(0,indices[0]);
+	part_2 = str.slice(indices[1]+ 1, str.length)
+	return part_1 + sum + part_2;
 }
 
 add_numbers = function(item) {
@@ -21,6 +38,9 @@ add_numbers = function(item) {
 	running_sum += Number(item[0])
 	pos = 1
 	while (pos < item.length) {
+
+		console.log('char: ', item[pos]);
+
 		if (item[pos] === '+') {
 			running_sum += Number(item[pos+1]);
 		} else if (item[pos] === '-') {
@@ -37,15 +57,13 @@ add_numbers = function(item) {
 excise_item = function(indices, str) {
 	return str.slice(indices[0]+ 1, indices[1]);
 }
-
 	
 get_item_index = function(str) {
 	len = str.length
-	idx = 0;
 	var open_paren_idx = null;
 	var close_paren_idx = null;
 	i = 0;
-	while (idx < len) {
+	while (i < len) {
 		charr = str[i]
 		if (charr === '(') {
 			open_paren_idx = i;
@@ -74,7 +92,7 @@ remove_spaces = function(str) {
 }
 
 
-str = '(1+ (4+5+2 ) -3)+(6+8)'
+str = '(1+ (4 +1+2 ) -3)-(6+ 2)'
 calculator(str)
 
 
