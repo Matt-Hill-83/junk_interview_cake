@@ -1,3 +1,10 @@
+inherit = function(baseclass, subclass) {
+	// Assign subclass prototype to copy of baseclass prototype
+	subclass.prototype = Object.create(baseclass.prototype);
+	// Reorient the baseclass constructor so that it points to the subclass as a parent
+	subclass.prototype.constructor = subclass;
+}
+
 function clear() {
   process.stdout.write('\u001B[2J\u001B[0;0f');
 }
@@ -53,10 +60,7 @@ var GetLow = function(num_list, new_num) {
 	TrimList.call(this, num_list, new_num);
 };
 
-// Assign subclass prototype to copy of baseclass prototype
-GetLow.prototype = Object.create(TrimList.prototype);
-// Reorient the baseclass constructor so that it points to the subclass as a parent
-GetLow.prototype.constructor = GetLow;
+inherit(TrimList, GetLow);
 
 // Customize slicing function
 GetLow.prototype.slicer = function() {
@@ -69,19 +73,12 @@ var GetHigh = function(num_list, new_num) {
 	TrimList.call(this, num_list, new_num);
 };
 
-// Assign subclass prototype to copy of baseclass prototype
-GetHigh.prototype = Object.create(TrimList.prototype);
-// Reorient the baseclass constructor so that it points to the subclass as a parent
-GetHigh.prototype.constructor = GetHigh;
+inherit(TrimList, GetHigh);
 
 // Customize slicing function
 GetHigh.prototype.slicer = function() {
 	this.num_list = this.num_list.slice(1,4);
  };
-
-
-
-
 
 
 num_array = [2,3,7,1]
