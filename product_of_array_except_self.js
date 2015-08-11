@@ -3,67 +3,48 @@ function clear() {
 }
 clear();
 
-
 array_prod = function(arr) {
-
 	output = [];
-	console.log('orig: ' , arr);
 
-	pre_products = get_pre_products(arr);
-	console.log('pre_products: ' , pre_products);
-
-	post_products = get_post_products(arr);
-	console.log('post_products: ' , post_products);
+	all_products = get_all_products(arr);
+	pre_products = all_products[0];
+	post_products = all_products[1];
 
 	for (var i = 0; i < arr.length; i++) {
 		product = pre_products[i] * post_products[i];
 		output.push(product);
 	}
 
-	console.log(output);
-	return output
+	console.log('pre_products: ' , pre_products);
+	console.log('post_products: ' , post_products);
+	console.log('final_answer: ' , output);
 
+	return output
 }
 
-
-get_pre_products = function(arr) {
-	running_product_pre = 1;
+get_all_products = function(arr) {
+	running_pre_products = 1;
 	pre_products = [];
 
-	for (var i = 0; i < arr.length; i++) {
-		pre_products.push(1);
-	}
-
-	for (var i = 0; i < arr.length - 1; i++) {
-		running_product_pre *= arr[i];
-		pre_products[i+ 1] = (running_product_pre);
-	}
-
-
-
-	return pre_products
-}
-
-get_post_products = function(arr) {
-	running_product_post = 1;
+	running_post_products = 1;
 	post_products = [];
 
 	for (var i = 0; i < arr.length; i++) {
+		pre_products.push(1);
 		post_products.push(1);
 	}
 
-
 	for (var i = 0; i < arr.length - 1; i++) {
+		running_pre_products *= arr[i];
+		pre_products[i+ 1] = (running_pre_products);
 
 		pos = arr.length - i -1
 
-		running_product_post *= arr[pos];
-		post_products[pos -1] = running_product_post;
+		running_post_products *= arr[pos];
+		post_products[pos -1] = running_post_products;
+		
 	}
-
-
-
-	return post_products
+	return [pre_products, post_products]
 }
 
 
