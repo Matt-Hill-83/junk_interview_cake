@@ -15,16 +15,16 @@ find_prod = function(nums) {
 
 	for (var i = 0; i < nums.length; i++) {
 		var new_num = nums[i];
-		highest_nums = get_highest(highest_nums, new_num)
+		// highest_nums = get_highest(highest_nums, new_num)
 		lowest_nums = get_lowest(lowest_nums, new_num)
 
 		var get_some = new GetSome(highest_nums, new_num);
-		test = get_some.push_and_sort();
-		console.log(test);
+		highest_nums = get_some.push_and_sort();
+		console.log('result: ' + highest_nums);
 
 	};
-	console.log(highest_nums);
-	console.log(lowest_nums);
+	// console.log(highest_nums);
+	// console.log(lowest_nums);
 };
 
 
@@ -57,7 +57,6 @@ low_slicer = function(num_list) {
 }
 
 
-
 var GetSome = function(num_list, new_num){
 	this.num_list = num_list;
 	this.new_num = new_num;
@@ -69,14 +68,13 @@ GetSome.prototype.push_and_sort = function(){
 	this.num_list.sort(compareNumbers)
 
 	if (this.num_list.length == 4) {
-		this.num_list = this.slicer(this.num_list)
+		this.slicer()
 	};
-
 	return this.num_list
 };
 
-GetSome.prototype.slicer = function(num_list) {
-	this.num_list = num_list.slice(0,3);
+GetSome.prototype.slicer = function() {
+	this.num_list = this.num_list.slice(1,4);
 };
 
 var GetLow = function(num_list, new_num) {
@@ -87,7 +85,7 @@ GetLow.prototype = Object.create(GetSome.prototype);
 GetLow.prototype.constructor = GetLow;
 
 GetLow.prototype.slicer = function() {
-	this.num_list = num_list.slice(1,4);
+	this.num_list = this.num_list.slice(0,3);
  };
 
 
