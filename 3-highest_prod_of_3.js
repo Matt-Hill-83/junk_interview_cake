@@ -15,55 +15,26 @@ find_prod = function(nums) {
 
 	for (var i = 0; i < nums.length; i++) {
 		var new_num = nums[i];
-		// highest_nums = get_highest(highest_nums, new_num)
-		lowest_nums = get_lowest(lowest_nums, new_num)
 
-		var get_some = new GetSome(highest_nums, new_num);
+		var get_some = new GetHigh(highest_nums, new_num);
 		highest_nums = get_some.push_and_sort();
-		console.log('result: ' + highest_nums);
+		
+		var get_some = new GetLow(lowest_nums, new_num);
+		lowest_nums = get_some.push_and_sort();
 
 	};
-	// console.log(highest_nums);
-	// console.log(lowest_nums);
+	console.log('highest: ' + highest_nums);
+	console.log('lowest: ' + lowest_nums);
 };
 
-
-get_highest = function(highest_nums, new_num) {
-	highest_nums.push(new_num)
-	highest_nums.sort(compareNumbers)
-
-	if (highest_nums.length == 4) {
-		highest_nums = highest_nums.slice(0,3);
-	};
-
-	return highest_nums
-
-}
-
-get_lowest = function(lowest_nums, new_num) {
-	lowest_nums.push(new_num)
-	lowest_nums.sort(compareNumbers)
-
-	if (lowest_nums.length == 4) {
-		lowest_nums = low_slicer(lowest_nums)
-	};
-
-	return lowest_nums
-
-}
-
-low_slicer = function(num_list) {
-	return num_list.slice(1,4);
-}
-
-
-var GetSome = function(num_list, new_num){
+// Create base class for list trimmer
+var TrimList = function(num_list, new_num){
 	this.num_list = num_list;
 	this.new_num = new_num;
 };
 
-
-GetSome.prototype.push_and_sort = function(){
+// Add functions to base class
+TrimList.prototype.push_and_sort = function(){
 	this.num_list.push(this.new_num)
 	this.num_list.sort(compareNumbers)
 
@@ -73,19 +44,39 @@ GetSome.prototype.push_and_sort = function(){
 	return this.num_list
 };
 
-GetSome.prototype.slicer = function() {
-	this.num_list = this.num_list.slice(1,4);
+TrimList.prototype.slicer = function() {
+	// Replace this with custom function in subclasses.
 };
 
+// Create subclass to get low elements
 var GetLow = function(num_list, new_num) {
-	GetSome.call(this, num_list, new_num);
+	TrimList.call(this, num_list, new_num);
 };
 
-GetLow.prototype = Object.create(GetSome.prototype);
+// Assign subclass prototype to copy of baseclass prototype
+GetLow.prototype = Object.create(TrimList.prototype);
+// Reorient the baseclass constructor so that it points to the subclass as a parent
 GetLow.prototype.constructor = GetLow;
 
+// Customize slicing function
 GetLow.prototype.slicer = function() {
 	this.num_list = this.num_list.slice(0,3);
+ };
+
+
+// Create subclass to get high elements
+var GetHigh = function(num_list, new_num) {
+	TrimList.call(this, num_list, new_num);
+};
+
+// Assign subclass prototype to copy of baseclass prototype
+GetHigh.prototype = Object.create(TrimList.prototype);
+// Reorient the baseclass constructor so that it points to the subclass as a parent
+GetHigh.prototype.constructor = GetHigh;
+
+// Customize slicing function
+GetHigh.prototype.slicer = function() {
+	this.num_list = this.num_list.slice(1,4);
  };
 
 
