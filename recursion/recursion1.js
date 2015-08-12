@@ -12,21 +12,19 @@ clear();
 // end
 // '''
 
-sum_recur = function(arr) {
-  console.log(arr.length === 0)
-  if (arr.length === 0) {
-    return 0 
-  }
-  first_el = arr.shift();
-  console.log(first_el, arr)
-  return first_el + sum_recur(arr)
-}
+// sum_recur = function(arr) {
+//   console.log(arr.length === 0)
+//   if (arr.length === 0) {
+//     return 0 
+//   }
+//   first_el = arr.shift();
+//   console.log(first_el, arr)
+//   return first_el + sum_recur(arr)
+// }
 
-
-
-arr = [1,2,3,4]
-ans = sum_recur(arr);
-console.log(ans)
+// arr = [1,2,3,4]
+// ans = sum_recur(arr);
+// console.log(ans)
 
 // '''
 // #Problem 2: You have array of integers. Write a recursive solution to determine
@@ -38,6 +36,23 @@ console.log(ans)
 //   includes?(array.drop(1), target)
 // end
 
+// find_val = function(arr, val) {
+//   if (arr.length === 0) {
+//     return false;
+//   };
+//   if (arr[0] === val) {
+//     return true
+//   };
+//   first_el = arr.shift();
+//   return find_val(arr, val);
+// }
+
+// arr = [1,2,3,4]
+// val = 5
+// ans = find_val(arr, val);
+// console.log(ans)
+
+
 // # Problem 3: You have an unsorted array of integers. Write a recursive solution
 // # to count the number of occurrences of a specific value.
 
@@ -46,6 +61,28 @@ console.log(ans)
 //   count_update = array.first == target ? 1 : 0
 //   count_update + num_occur(array.drop(1), target)
 // end
+
+// count_vals = function(arr, target) {
+//   if (arr.length === 0) {
+//     return 0
+//   };
+//   if (arr[0] === target) {
+//     val = 1
+//   } else {
+//     val = 0 
+//   }
+
+//   console.log('arr: ', arr)
+//   arr.shift()
+//   return val + count_vals(arr , target);
+// }
+
+// arr = [1,2,4, 6, 7, 4, 3,4]
+// val = 3
+
+// ans = count_vals(arr, val);
+// console.log(ans)
+
 
 // # Problem 4: You have array of integers. Write a recursive solution to determine
 // # whether or not two adjacent elements of the array add to 12.
@@ -56,6 +93,24 @@ console.log(ans)
 //   add_to_twelve?(array.drop(1))
 // end
 
+// adj_sum = function(arr) {
+//   if (arr.length === 1) {
+//     return false
+//   };
+//   if (arr[0] + arr[1] === 12) {
+//     return true
+//   } 
+
+//   console.log('arr: ', arr)
+//   arr.shift()
+//   return adj_sum(arr);
+// }
+
+// arr = [1,2,4, 6, 7, 4, 3,4]
+// ans = adj_sum(arr);
+// console.log(ans)
+
+
 // # Problem 5: You have array of integers. Write a recursive solution to determine
 // # if the array is sorted.
 
@@ -65,6 +120,24 @@ console.log(ans)
 //   sorted?(array.drop(1))
 // end
 
+// sorted = function(arr) {
+//   if (arr.length === 1) {
+//     return true
+//   };
+//   if (arr[0] > arr[1]) {
+//     return false
+//   } 
+
+//   console.log('arr: ', arr)
+//   arr.shift()
+//   return sorted(arr);
+// }
+
+// arr = [1,2,4, 6, 7]
+// ans = sorted(arr);
+// console.log(ans)
+
+
 // # Problem 6: Write a recursive function to reverse a string. Dont use any
 // # built-in #reverse methods!
 
@@ -73,4 +146,21 @@ console.log(ans)
 //   string[-1] + reverse(string.slice(1, string.length - 2)) + string[0]
 // end
 // '''
+
+sorted = function(arr) {
+  if (arr.length === 1) {
+    return true
+  };
+  if (arr[0] > arr[1]) {
+    return false
+  } 
+
+  console.log('arr: ', arr)
+  arr.shift()
+  return sorted(arr);
+}
+
+arr = [1,2,4, 6, 7]
+ans = sorted(arr);
+console.log(ans)
 
